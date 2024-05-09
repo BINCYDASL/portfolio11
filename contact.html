@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Form Validation</title>
+<style>
+.error {
+  color: red;
+}
+</style>
+</head>
+<body>
+<!-- form validation -->
+<h2>Contact Me</h2>
+<form action="https://api.web3forms.com/submit" method="post"id="myForm" onsubmit="return validateForm()">
+    <input type="hidden" name="access_key" value="e547c8c6-b665-4871-8c7d-303921b6a309">
+    <label for="name">Name:</label><br>
+    <input type="text" id="name" name="name"><br>
+    <span id="nameError" class="error"></span><br>
+    
+    <label for="email">Email:</label><br>
+    <input type="text" id="email" name="email"><br>
+    <span id="emailError" class="error"></span><br>
+
+    <label for="message">Message:</label><br>
+    <textarea id="message" name="message"></textarea><br>
+    <span id="messageError" class="error"></span><br>
+    
+    <input type="submit" value="Submit">
+</form>
+<!-- java script -->
+<script>
+  
+function validateForm() {
+    var name = document.getElementById("name").value;
+    var email = document.getElementById("email").value;
+    var message = document.getElementById("message").value;
+    var nameError = document.getElementById("nameError");
+    var emailError = document.getElementById("emailError");
+    var messageError = document.getElementById("messageError");
+    var isValid = true;
+
+    nameError.innerHTML = "";
+    emailError.innerHTML = "";
+    messageError.innerHTML = "";
+
+    if (name === "") {
+        nameError.innerHTML = "Name is required";
+        isValid = false;
+    }
+
+    if (email === "") {
+        emailError.innerHTML = "Email is required";
+        isValid = false;
+    } else if (!validateEmail(email)) {
+        emailError.innerHTML = "Invalid email address";
+        isValid = false;
+    }
+
+    if (message === "") {
+        messageError.innerHTML = "Message is required";
+        isValid = false;
+    }
+
+    return isValid;
+}
+
+function validateEmail(email) {
+    var re = /^([a-zA-Z0-9]+)@([a-z A-Z]+)\.([a-z]+)$/;
+    return re.test(email);
+}
+</script>
+
+</body>
+</html>
